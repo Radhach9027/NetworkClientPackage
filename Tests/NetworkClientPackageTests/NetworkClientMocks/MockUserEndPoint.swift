@@ -1,4 +1,4 @@
-@testable import NetworkClient
+@testable import NetworkClientPackage
 
 enum MockUserEndPoint {
     case all

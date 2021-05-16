@@ -1,4 +1,4 @@
-@testable import NetworkClient
+@testable import NetworkClientPackage
 import Foundation
 
 class NetworkSessionMock: NetworkSessionProtocol {
