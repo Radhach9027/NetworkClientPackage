@@ -3,6 +3,8 @@ import Foundation
 public final class NetworkAction: NetworkOperationProtocol {
     
     private var task: NetworkSessionTaskProtocol?
+    
+    public init() {}
 
     public func cancel() {
         task?.cancel()
