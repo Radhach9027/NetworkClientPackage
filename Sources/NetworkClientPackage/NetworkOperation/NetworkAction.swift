@@ -20,7 +20,7 @@ public final class NetworkAction: NetworkOperationProtocol {
                 completion(result)
             })
         } else {
-            completion(.error(nil, nil, .noInternet))
+            completion(.noInterNet(.noInternet))
         }
     }
     

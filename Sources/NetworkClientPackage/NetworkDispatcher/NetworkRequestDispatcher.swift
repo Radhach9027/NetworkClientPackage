@@ -16,7 +16,7 @@ extension NetworkRequestDispatcher: NetworkRequestDispatchProtocol {
     public func fetch(request: NetworkRequestProtocol, completion: @escaping (NetworkOperationResult) -> Void) -> NetworkSessionTaskProtocol? {
         
         guard var urlRequest = request.urlRequest(with: environment) else {
-            completion(.error(NetworkError.badRequest("Invalid URL for: \(request)"), nil, nil))
+            completion(.error(NetworkError.badRequest("Invalid URL for: \(request)"), nil))
             return nil
         }
         
@@ -56,7 +56,7 @@ private extension NetworkRequestDispatcher {
     
     func readURLResponse(data: Data?, urlResponse: URLResponse?, error: Error?, completion: @escaping (NetworkOperationResult) -> Void) {
         
-        guard let urlResponse = urlResponse as? HTTPURLResponse else { return completion(.error(NetworkError.invalidResponse, nil, nil)) }
+        guard let urlResponse = urlResponse as? HTTPURLResponse else { return completion(.error(NetworkError.invalidResponse, nil)) }
         
         let result = NetworkError.validateHTTPError(data: data, urlResponse: urlResponse, error: error)
         
@@ -67,7 +67,7 @@ private extension NetworkRequestDispatcher {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    completion(.error(error, urlResponse, nil))
+                    completion(.error(error, urlResponse))
                 }
         }
     }
@@ -75,7 +75,7 @@ private extension NetworkRequestDispatcher {
     
     func readFileResponse(fileUrl: URL?, urlResponse: URLResponse?, error: Error?, completion: @escaping (NetworkOperationResult) -> Void) {
         
-        guard let urlResponse = urlResponse as? HTTPURLResponse else { return completion(.error(NetworkError.invalidResponse, nil, nil)) }
+        guard let urlResponse = urlResponse as? HTTPURLResponse else { return completion(.error(NetworkError.invalidResponse, nil)) }
         
         let result = NetworkError.validateHTTPError(data: fileUrl, urlResponse: urlResponse, error: error)
         
@@ -87,7 +87,7 @@ private extension NetworkRequestDispatcher {
                 
             case .failure(let error):
                 DispatchQueue.main.async {
-                    completion(.error(error, urlResponse, nil))
+                    completion(.error(error, urlResponse))
                 }
         }
     }
