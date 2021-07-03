@@ -18,16 +18,17 @@ final class NetworkClientPackageTests: XCTestCase {
     // test data task ---> Should return expected mock model -- AAA
     func testDataTaskSession_StubNetworkAction_ThenShouldReturnExpetcedMockModel() {
         ///ARRANGE & ACT
-        let networkAction = NetworkAction(request: MockUserEndPoint.all)
+        let networkAction = NetworkAction()
+        let request = MockUserEndPoint.all
         ///ASSERT
-        XCTAssertEqual(networkAction.request.method.rawValue, NetworkRequestMethod.get.rawValue)
-        XCTAssertEqual(networkAction.request.requestType, NetworkRequestType.data)
-        XCTAssertEqual(networkAction.request.responseType, NetworkResponseType.json)
-        XCTAssertEqual(networkAction.request.path, "/users")
+        XCTAssertEqual(request.method.rawValue, NetworkRequestMethod.get.rawValue)
+        XCTAssertEqual(request.requestType, NetworkRequestType.data)
+        XCTAssertEqual(request.responseType, NetworkResponseType.json)
+        XCTAssertEqual(request.path, "/users")
         guard let dispatcher = requestDispatcher else { return XCTAssertThrowsError("requestDispatcher is nil")}
         
         ///ACT
-        networkAction.fetch(in: dispatcher) { result in
+        networkAction.fetch(request: request, in: dispatcher) { result in
             ///ASSERT
             switch result {
                 case  let .json(_, data):
