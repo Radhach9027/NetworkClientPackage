@@ -17,7 +17,7 @@ public final class NetworkAction: NetworkOperationProtocol {
                 completion(result)
             })
         } else {
-            completion(.noInterNet(.noInternet))
+            completion(.noInternet(.noInternet))
         }
     }
     
